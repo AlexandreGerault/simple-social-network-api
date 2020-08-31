@@ -5,18 +5,17 @@ namespace Domain\Tests\Auth;
 use Domain\SSN\Auth\Entity\User;
 use Domain\SSN\Auth\Exceptions\InvalidCredentialsException;
 use Domain\SSN\Auth\Exceptions\UserNotFoundException;
-use Domain\SSN\Auth\Gateway\UserGateway;
 use Domain\SSN\Auth\UseCases\Login\Login;
 use Domain\SSN\Auth\UseCases\Login\LoginPresenterInterface;
 use Domain\SSN\Auth\UseCases\Login\LoginRequest;
 use Domain\SSN\Auth\UseCases\Login\LoginResponse;
+use Domain\Tests\Adapters\Repositories\UserRepository;
 use PHPUnit\Framework\TestCase;
 
 class LoginTest extends TestCase
 {
     private Login $useCase;
     private LoginPresenterInterface $presenter;
-    private UserGateway $userGateway;
 
     protected function setUp(): void
     {
@@ -31,21 +30,9 @@ class LoginTest extends TestCase
             }
         };
 
-        $this->userGateway = new class implements UserGateway {
-            /**
-             * @param string $email
-             * @return User
-             */
-            public function getUserByEmail(string $email): User
-            {
-                if ($email == 'good@domain.tld') {
-                    return new User($email, password_hash('correctPassword', PASSWORD_ARGON2ID));
-                }
-                throw new UserNotFoundException();
-            }
-        };
+        $userGateway = new UserRepository();
 
-        $this->useCase = new Login($this->userGateway);
+        $this->useCase = new Login($userGateway);
     }
 
     public function testSuccessful()
