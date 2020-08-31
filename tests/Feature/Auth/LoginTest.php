@@ -23,6 +23,7 @@ class LoginTest extends TestCase
 
     public function testSuccessful()
     {
+        $this->withoutExceptionHandling();
         // Test initialization
         $credentials = [
             'email' => 'good@domain.tld',

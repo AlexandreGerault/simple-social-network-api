@@ -13,4 +13,6 @@ interface UserGateway
      * @throws UserNotFoundException
      */
     public function getUserByEmail(string $email): User;
+
+    public function registers(User $user): void;
 }

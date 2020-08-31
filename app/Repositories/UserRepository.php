@@ -20,8 +20,16 @@ class UserRepository extends BaseRepository implements UserGateway
         $dbUser = $this->connection->table($this->table)->where('email', $email)->first();
 
         if ($dbUser) {
-            return new User($dbUser->email, $dbUser->password);
+            return new User(
+                $dbUser->username,
+                $dbUser->email,
+                $dbUser->password
+            );
         }
         throw new UserNotFoundException();
+    }
+
+    public function registers(User $user): void
+    {
     }
 }
