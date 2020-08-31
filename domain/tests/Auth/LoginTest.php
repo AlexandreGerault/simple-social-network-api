@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Domain\Tests\Auth;
 
 use Domain\SSN\Auth\Entity\User;
@@ -23,7 +22,7 @@ class LoginTest extends TestCase
     {
         parent::setUp();
 
-        $this->presenter = new class() implements LoginPresenterInterface {
+        $this->presenter = new class () implements LoginPresenterInterface {
             public LoginResponse $response;
 
             public function presents(LoginResponse $response): void
@@ -40,7 +39,7 @@ class LoginTest extends TestCase
             public function getUserByEmail(string $email): User
             {
                 if ($email == 'good@domain.tld') {
-                    return new User($email, password_hash('correctPassword', PASSWORD_ARGON2I));
+                    return new User($email, password_hash('correctPassword', PASSWORD_ARGON2ID));
                 }
                 throw new UserNotFoundException();
             }

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Domain\SSN\Auth\UseCases\Login;
-
 
 interface LoginPresenterInterface
 {
