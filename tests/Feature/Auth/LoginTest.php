@@ -67,4 +67,17 @@ class LoginTest extends TestCase
 
         $response->assertRedirect();
     }
+
+    public function testAuthenticatedCanLogout()
+    {
+        $this->withoutExceptionHandling();
+        // Test initialization
+        $this->actingAs($this->user);
+
+        // Test actions
+        $response = $this->get('/api/logout');
+
+        // Test assertions
+        $response->assertStatus(204);
+    }
 }
