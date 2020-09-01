@@ -2,13 +2,17 @@
 
 namespace App;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\EloquentPost;
+use Domain\SSN\Auth\Entity\User;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+class EloquentUser extends Authenticatable
 {
     use Notifiable;
+
+    protected $table = 'users';
 
     /**
      * The attributes that are mass assignable.
@@ -36,4 +40,18 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public static function createFromUser(User $user)
+    {
+        (new self())
+            ->setAttribute('username', $user->getUsername())
+            ->setAttribute('email', $user->getEmail())
+            ->setAttribute('password', $user->getPassword())
+        ->save();
+    }
+
+    public function posts(): HasMany
+    {
+        return $this->hasMany(EloquentPost::class, 'user_id', 'id');
+    }
 }

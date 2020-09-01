@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\EloquentUser;
 use Domain\SSN\Auth\Entity\User;
 use Domain\SSN\Auth\Exceptions\UserNotFoundException;
 use Domain\SSN\Auth\Gateway\UserGateway;
@@ -31,10 +32,6 @@ class UserRepository extends BaseRepository implements UserGateway
 
     public function registers(User $user): void
     {
-        $this->connection->table($this->table)->insert([
-            'username' => $user->getUsername(),
-            'email' => $user->getEmail(),
-            'password' => $user->getPassword()
-        ]);
+        EloquentUser::createFromUser($user);
     }
 }

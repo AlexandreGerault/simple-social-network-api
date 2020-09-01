@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Auth;
 
-use App\User;
+use App\EloquentUser;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -10,12 +10,12 @@ class LoginTest extends TestCase
 {
     use RefreshDatabase;
 
-    private User $user;
+    private EloquentUser $user;
 
     public function setUp(): void
     {
         parent::setUp();
-        $this->user = factory(User::class)->create([
+        $this->user = factory(EloquentUser::class)->create([
             'email' => 'good@domain.tld',
             'password' => password_hash('correctPassword', PASSWORD_ARGON2ID)
         ]);
