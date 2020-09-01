@@ -31,5 +31,10 @@ class UserRepository extends BaseRepository implements UserGateway
 
     public function registers(User $user): void
     {
+        $this->connection->table($this->table)->insert([
+            'username' => $user->getUsername(),
+            'email' => $user->getEmail(),
+            'password' => $user->getPassword()
+        ]);
     }
 }

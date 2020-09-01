@@ -58,9 +58,21 @@ class LoginController extends Controller
                 'password' => $loginRequest->getPlainPassword()
             ]);
         } catch (InvalidCredentialsException $e) {
-            return new JsonResponse(['error' => 'invalid credentials'], 401, []);
+            return new JsonResponse(['errors' =>
+                [
+                    'title' => 'Invalid credentials',
+                    'details' => 'No user found with these credentials',
+                    'status' => 'Bad request'
+                ]
+            ], 401, []);
         } catch (UserNotFoundException $e) {
-            return new JsonResponse(['error' => 'user not found'], 404, []);
+            return new JsonResponse(['errors' =>
+                [
+                    'title' => 'User not found',
+                    'details' => 'No user has been found for the email ' . $loginRequest->getEmail(),
+                    'status' => 'Resource not found',
+                ]
+            ], 404, []);
         }
 
         return new JsonResponse(["user" => "User found"], 200);
