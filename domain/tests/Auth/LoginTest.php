@@ -9,6 +9,7 @@ use Domain\SSN\Auth\UseCases\Login\Login;
 use Domain\SSN\Auth\UseCases\Login\LoginPresenterInterface;
 use Domain\SSN\Auth\UseCases\Login\LoginRequest;
 use Domain\SSN\Auth\UseCases\Login\LoginResponse;
+use Domain\SSN\Auth\ViewModels\UserViewModelInterface;
 use Domain\Tests\Adapters\Repositories\UserRepository;
 use PHPUnit\Framework\TestCase;
 
@@ -27,6 +28,10 @@ class LoginTest extends TestCase
             public function presents(LoginResponse $response): void
             {
                 $this->response = $response;
+            }
+
+            public function getViewModel(): UserViewModelInterface
+            {
             }
         };
 

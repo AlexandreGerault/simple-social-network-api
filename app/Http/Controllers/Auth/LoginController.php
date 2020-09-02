@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\JsonViews\UserJsonView;
 use Domain\SSN\Auth\Exceptions\InvalidCredentialsException;
 use Domain\SSN\Auth\Exceptions\UserNotFoundException;
 use Domain\SSN\Auth\Gateway\UserGateway;
@@ -57,6 +58,7 @@ class LoginController extends Controller
                 'email' => $loginRequest->getEmail(),
                 'password' => $loginRequest->getPlainPassword()
             ]);
+            $jsonView = (new UserJsonView($this->presenter->getViewModel()))->asArray();
         } catch (InvalidCredentialsException $e) {
             return new JsonResponse(['errors' =>
                 [
@@ -75,6 +77,6 @@ class LoginController extends Controller
             ], 404, []);
         }
 
-        return new JsonResponse(["user" => "User found"], 200);
+        return new JsonResponse($jsonView, 200);
     }
 }

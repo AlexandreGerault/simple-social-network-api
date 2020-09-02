@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegistrationRequest as LaravelRegistrationRequest;
+use App\JsonViews\UserJsonView;
 use App\Presenters\Auth\RegistrationPresenter;
 use Assert\AssertionFailedException;
 use Domain\SSN\Auth\Gateway\UserGateway;
@@ -44,7 +45,8 @@ class RegisterController extends Controller
         );
 
         $this->useCase->execute($registrationRequest, $this->presenter);
+        $jsonView = (new UserJsonView($this->presenter->getViewModel()))->asArray();
 
-        return new JsonResponse(null, 201);
+        return new JsonResponse($jsonView, 201);
     }
 }

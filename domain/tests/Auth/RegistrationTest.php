@@ -9,6 +9,7 @@ use Domain\SSN\Auth\UseCases\Registration\Registration;
 use Domain\SSN\Auth\UseCases\Registration\RegistrationPresenterInterface;
 use Domain\SSN\Auth\UseCases\Registration\RegistrationRequest;
 use Domain\SSN\Auth\UseCases\Registration\RegistrationResponse;
+use Domain\SSN\Auth\ViewModels\UserViewModelInterface;
 use Domain\Tests\Adapters\Repositories\UserRepository;
 use Generator;
 use PHPUnit\Framework\TestCase;
@@ -31,6 +32,10 @@ class RegistrationTest extends TestCase
             public function presents(RegistrationResponse $response): void
             {
                 $this->response = $response;
+            }
+
+            public function getViewModel(): UserViewModelInterface
+            {
             }
         };
     }
