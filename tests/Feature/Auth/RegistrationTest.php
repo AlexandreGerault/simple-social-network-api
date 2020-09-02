@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Auth;
 
-use App\User;
+use App\EloquentUser;
 use Generator;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -13,8 +13,9 @@ class RegistrationTest extends TestCase
 
     public function testSuccessful()
     {
+        $this->withoutExceptionHandling();
         // Test initialization
-        $inputs = factory(User::class)
+        $inputs = factory(EloquentUser::class)
             ->raw([
                 'password' => password_hash('correctPassword', PASSWORD_ARGON2ID)
             ]);
