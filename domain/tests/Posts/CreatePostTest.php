@@ -5,11 +5,11 @@ namespace Domain\Tests\Posts;
 use Assert\AssertionFailedException;
 use Domain\SSN\Auth\Entity\User;
 use Domain\SSN\Posts\Entity\Post;
-use Domain\SSN\Posts\Gateway\PostGateway;
 use Domain\SSN\Posts\UseCases\CreatePost\CreatePost;
 use Domain\SSN\Posts\UseCases\CreatePost\CreatePostPresenterInterface;
 use Domain\SSN\Posts\UseCases\CreatePost\CreatePostRequest;
 use Domain\SSN\Posts\UseCases\CreatePost\CreatePostResponse;
+use Domain\Tests\Adapters\Repositories\PostRepository;
 use Generator;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
@@ -24,11 +24,7 @@ class CreatePostTest extends TestCase
     {
         parent::setUp();
 
-        $gateway = new class implements PostGateway {
-            public function create(Post $post): void
-            {
-            }
-        };
+        $gateway = new PostRepository();
 
         $this->presenter = new class implements CreatePostPresenterInterface {
             public CreatePostResponse $response;
