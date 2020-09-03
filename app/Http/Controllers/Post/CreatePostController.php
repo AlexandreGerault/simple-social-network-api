@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Post;
 
+use App\EloquentUser;
 use App\Http\Controllers\Controller;
 use Domain\SSN\Auth\Entity\User;
 use Domain\SSN\Posts\Gateway\PostGateway;
@@ -11,6 +12,7 @@ use Domain\SSN\Posts\UseCases\CreatePost\CreatePostRequest;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Ramsey\Uuid\Uuid;
 
 class CreatePostController extends Controller
 {
@@ -42,12 +44,13 @@ class CreatePostController extends Controller
      */
     public function __invoke(Request $request)
     {
-        /** @var \App\EloquentUser $loggedUser */
+        /** @var EloquentUser $loggedUser */
         $loggedUser = $this->auth->guard()->user();
 
         $this->useCase->execute(new CreatePostRequest(
             $request->get('content'),
             new User(
+                Uuid::fromString($loggedUser->id),
                 $loggedUser->username,
                 $loggedUser->email,
                 $loggedUser->password

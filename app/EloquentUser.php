@@ -4,8 +4,8 @@ namespace App;
 
 use App\Models\EloquentPost;
 use Domain\SSN\Auth\Entity\User;
+use GoldSpecDigital\LaravelEloquentUUID\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class EloquentUser extends Authenticatable
@@ -20,7 +20,7 @@ class EloquentUser extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'id', 'name', 'email', 'password',
     ];
 
     /**
@@ -44,6 +44,7 @@ class EloquentUser extends Authenticatable
     public static function createFromUser(User $user)
     {
         (new self())
+            ->setAttribute('id', $user->getId()->toString())
             ->setAttribute('username', $user->getUsername())
             ->setAttribute('email', $user->getEmail())
             ->setAttribute('password', $user->getPassword())

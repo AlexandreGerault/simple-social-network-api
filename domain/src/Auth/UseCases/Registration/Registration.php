@@ -31,11 +31,7 @@ class Registration
         $user = User::createFromRegistration($request);
         $this->gateway->registers($user);
 
-        $response = new RegistrationResponse(new User(
-            $request->getUsername(),
-            $request->getEmail(),
-            $request->getPlainPassword()
-        ));
+        $response = new RegistrationResponse($user);
         $presenter->presents($response);
     }
 }

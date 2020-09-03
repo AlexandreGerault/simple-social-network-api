@@ -12,6 +12,7 @@ use Domain\SSN\Posts\UseCases\CreatePost\CreatePostRequest;
 use Domain\SSN\Posts\UseCases\CreatePost\CreatePostResponse;
 use Generator;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 
 class CreatePostTest extends TestCase
 {
@@ -39,6 +40,7 @@ class CreatePostTest extends TestCase
         };
 
         $this->user = new User(
+            Uuid::uuid4(),
             "AuthorName",
             "author@email.tld",
             "plainPassword"
@@ -79,7 +81,7 @@ class CreatePostTest extends TestCase
 
     public function invalidData(): Generator
     {
-        yield ["", new User('name', 'email@email.tld', 'password')];
+        yield ["", new User(Uuid::uuid4(), 'name', 'email@email.tld', 'password')];
         yield ["Some Content", null];
     }
 }

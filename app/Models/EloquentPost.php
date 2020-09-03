@@ -12,6 +12,7 @@ class EloquentPost extends Model
     protected $table = "posts";
 
     protected $fillable = [
+        'id',
         'content'
     ];
 
@@ -19,6 +20,7 @@ class EloquentPost extends Model
     {
         $author = EloquentUser::where('email', $post->getAuthor()->getEmail())->first();
         $author->posts()->create([
+            'id' => $post->getId(),
             'content' => $post->getContent()
         ]);
     }
