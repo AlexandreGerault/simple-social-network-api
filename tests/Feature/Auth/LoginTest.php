@@ -40,6 +40,7 @@ class LoginTest extends TestCase
 
     public function testFails()
     {
+        $this->withoutExceptionHandling();
         // Test initialization
         $credentials = [
             'email' => 'bad@domain.tld',

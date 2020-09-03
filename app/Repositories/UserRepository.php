@@ -6,6 +6,7 @@ use App\EloquentUser;
 use Domain\SSN\Auth\Entity\User;
 use Domain\SSN\Auth\Exceptions\UserNotFoundException;
 use Domain\SSN\Auth\Gateway\UserGateway;
+use Ramsey\Uuid\Uuid;
 
 class UserRepository extends BaseRepository implements UserGateway
 {
@@ -22,6 +23,7 @@ class UserRepository extends BaseRepository implements UserGateway
 
         if ($dbUser) {
             return new User(
+                Uuid::fromString($dbUser->id),
                 $dbUser->username,
                 $dbUser->email,
                 $dbUser->password
