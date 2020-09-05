@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Post;
 
 use App\EloquentUser;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CreatePostRequest as CreatePostFormRequest;
+use App\JsonViews\PostJsonView;
+use Assert\AssertionFailedException;
 use Domain\SSN\Auth\Entity\User;
 use Domain\SSN\Posts\Gateway\PostGateway;
 use Domain\SSN\Posts\UseCases\CreatePost\CreatePost;
@@ -11,7 +14,6 @@ use Domain\SSN\Posts\UseCases\CreatePost\CreatePostPresenterInterface;
 use Domain\SSN\Posts\UseCases\CreatePost\CreatePostRequest;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Ramsey\Uuid\Uuid;
 
 class CreatePostController extends Controller
@@ -39,10 +41,11 @@ class CreatePostController extends Controller
     /**
      * Handle the incoming request.
      *
-     * @param Request $request
+     * @param CreatePostFormRequest $request
      * @return JsonResponse
+     * @throws AssertionFailedException
      */
-    public function __invoke(Request $request)
+    public function __invoke(CreatePostFormRequest $request)
     {
         /** @var EloquentUser $loggedUser */
         $loggedUser = $this->auth->guard()->user();
@@ -57,6 +60,6 @@ class CreatePostController extends Controller
             )
         ), $this->presenter);
 
-        return new JsonResponse(null, 201);
+        return new JsonResponse(new PostJsonView($this->presenter->getViewModel()), 201);
     }
 }

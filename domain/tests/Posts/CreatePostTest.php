@@ -9,6 +9,7 @@ use Domain\SSN\Posts\UseCases\CreatePost\CreatePost;
 use Domain\SSN\Posts\UseCases\CreatePost\CreatePostPresenterInterface;
 use Domain\SSN\Posts\UseCases\CreatePost\CreatePostRequest;
 use Domain\SSN\Posts\UseCases\CreatePost\CreatePostResponse;
+use Domain\SSN\Posts\ViewModels\PostViewModelInterface;
 use Domain\Tests\Adapters\Repositories\PostRepository;
 use Generator;
 use PHPUnit\Framework\TestCase;
@@ -32,6 +33,10 @@ class CreatePostTest extends TestCase
             public function presents(CreatePostResponse $response)
             {
                 $this->response = $response;
+            }
+
+            public function getViewModel(): PostViewModelInterface
+            {
             }
         };
 

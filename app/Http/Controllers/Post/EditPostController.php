@@ -3,13 +3,14 @@
 namespace App\Http\Controllers\Post;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\EditPostRequest as EditPostFormRequest;
+use App\JsonViews\PostJsonView;
 use Domain\SSN\Posts\Exceptions\PostNotFoundException;
 use Domain\SSN\Posts\Gateway\PostGateway;
 use Domain\SSN\Posts\UseCases\EditPost\EditPost;
 use Domain\SSN\Posts\UseCases\EditPost\EditPostPresenterInterface;
 use Domain\SSN\Posts\UseCases\EditPost\EditPostRequest;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Ramsey\Uuid\Uuid;
 
 class EditPostController extends Controller
@@ -28,11 +29,11 @@ class EditPostController extends Controller
     /**
      * Handle the incoming request.
      *
-     * @param Request $request
+     * @param EditPostFormRequest $request
      * @return JsonResponse
      * @throws PostNotFoundException
      */
-    public function __invoke(\App\Http\Requests\EditPostRequest $request): JsonResponse
+    public function __invoke(EditPostFormRequest $request): JsonResponse
     {
         $editPostRequest = new EditPostRequest(
             Uuid::fromString($request->id),
@@ -40,6 +41,6 @@ class EditPostController extends Controller
         );
         $this->useCase->execute($editPostRequest, $this->presenter);
 
-        return new JsonResponse(null, 200);
+        return new JsonResponse(new PostJsonView($this->presenter->getViewModel()), 200);
     }
 }

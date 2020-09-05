@@ -11,13 +11,22 @@ class CreatePostTest extends TestCase
 {
     use RefreshDatabase;
 
+    private EloquentUser $actor;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->actor = factory(EloquentUser::class)->create();
+    }
+
     public function testSuccessful()
     {
         $this->withoutExceptionHandling();
         // Test initialization
-        $this->actingAs($user = factory(EloquentUser::class)->create());
+        $this->actingAs($this->actor);
         $postInputs = factory(EloquentPost::class)->raw([
-            'user_id' => $user->id
+            'user_id' => $this->actor->id
         ]);
 
         // Test actions
@@ -27,7 +36,25 @@ class CreatePostTest extends TestCase
         $response->assertStatus(201);
         $this->assertDatabaseHas('posts', [
             'content' => $postInputs['content'],
-            'user_id' => $user->id
+            'user_id' => $this->actor->id
         ]);
+    }
+
+    public function testFailsWithInvalidInputs()
+    {
+        // Test initialization
+        $this->actingAs($this->actor);
+        $postInputs = factory(EloquentPost::class)->raw([
+            'user_id' => $this->actor->id,
+            'content' => ''
+        ]);
+
+        // Test actions
+        $response = $this->post('/api/posts', $postInputs, [
+            'Accept' => 'application/json'
+        ]);
+
+        // Test assertions
+        $response->assertStatus(422);
     }
 }

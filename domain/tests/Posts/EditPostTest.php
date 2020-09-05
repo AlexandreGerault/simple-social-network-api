@@ -9,6 +9,7 @@ use Domain\SSN\Posts\UseCases\EditPost\EditPost;
 use Domain\SSN\Posts\UseCases\EditPost\EditPostPresenterInterface;
 use Domain\SSN\Posts\UseCases\EditPost\EditPostRequest;
 use Domain\SSN\Posts\UseCases\EditPost\EditPostResponse;
+use Domain\SSN\Posts\ViewModels\PostViewModelInterface;
 use Domain\Tests\Adapters\Repositories\PostRepository;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
@@ -31,6 +32,10 @@ class EditPostTest extends TestCase
             public function presents(EditPostResponse $response): void
             {
                 $this->response = $response;
+            }
+
+            public function getViewModel(): PostViewModelInterface
+            {
             }
         };
 
