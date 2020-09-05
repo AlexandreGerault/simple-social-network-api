@@ -16,13 +16,18 @@ class CreatePostTest extends TestCase
         $this->withoutExceptionHandling();
         // Test initialization
         $this->actingAs($user = factory(EloquentUser::class)->create());
-        $postInputs = factory(EloquentPost::class)->raw();
+        $postInputs = factory(EloquentPost::class)->raw([
+            'user_id' => $user->id
+        ]);
 
         // Test actions
         $response = $this->post('/api/posts', $postInputs);
 
         // Test assertions
         $response->assertStatus(201);
-        $this->assertDatabaseHas('posts', $postInputs);
+        $this->assertDatabaseHas('posts', [
+            'content' => $postInputs['content'],
+            'user_id' => $user->id
+        ]);
     }
 }

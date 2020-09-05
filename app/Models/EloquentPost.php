@@ -4,7 +4,7 @@ namespace App\Models;
 
 use App\EloquentUser;
 use Domain\SSN\Posts\Entity\Post;
-use Illuminate\Database\Eloquent\Model;
+use GoldSpecDigital\LaravelEloquentUUID\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class EloquentPost extends Model
@@ -27,6 +27,10 @@ class EloquentPost extends Model
 
     public function author(): BelongsTo
     {
-        return $this->belongsTo(EloquentUser::class);
+        return $this->belongsTo(
+            EloquentUser::class,
+            'user_id',
+            'id'
+        );
     }
 }

@@ -3,6 +3,7 @@
 namespace Domain\SSN\Posts\UseCases\EditPost;
 
 use Domain\SSN\Posts\Entity\Post;
+use Domain\SSN\Posts\Exceptions\PostNotFoundException;
 use Domain\SSN\Posts\Gateway\PostGateway;
 
 class EditPost
@@ -18,6 +19,11 @@ class EditPost
         $this->gateway = $gateway;
     }
 
+    /**
+     * @param EditPostRequest $request
+     * @param EditPostPresenterInterface $presenter
+     * @throws PostNotFoundException
+     */
     public function execute(EditPostRequest $request, EditPostPresenterInterface $presenter)
     {
         $request->validate();
