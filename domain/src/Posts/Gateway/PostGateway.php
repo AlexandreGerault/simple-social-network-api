@@ -17,4 +17,10 @@ interface PostGateway
      */
     public function getById(UuidInterface $id): Post;
     public function update(Post $post): Post;
+
+    /**
+     * @param UuidInterface $id
+     * @throws PostNotFoundException
+     */
+    public function delete(UuidInterface $id): void;
 }
