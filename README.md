@@ -1,61 +1,43 @@
-<p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
+# Simple Social Network API
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+## C'est quoi ce projet ?
 
-## About Laravel
+Ce projet c'est un TP pour la plateforme [Made](https://made.alwaysdata.net/). Il a pour intérêt de s'entrainer à respecter les principes SOLID, à implémenter la Clean Architecture et à coder en TDD. Il s'agit d'une API de réseau social qui fonctionne sur un système similaire à Twitter. On développera par la suite une SPA qui consommera l'API de ce projet.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## La liste des use-cases
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Voici une checklist des use-cases du projet :
+- [X] Se connecter
+- [X] Se déconnecter
+- [X] S'inscrire
+- [ ] Modifier son profil
+- [X] Créer un post
+- [X] Éditer un post
+- [X] Supprimer un post
+- [ ] Voir un profil
+- [ ] S'abonner à un utilisateur
+- [ ] Se désabonner d'un utilisateur
+- [ ] Chercher un utilisateur
+- [ ] Afficher un fil d'actualités
+- [ ] Bannir un utilisateur (admin)
+- [ ] Supprimer un post (admin)
+- [ ] Supprimer un utilisateur (admin)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Ce repository n'est qu'une solution possible parmi une infinité
 
-## Learning Laravel
+Dans ce repository, j'implémente la clean architecture à ma façon. Il n'y a pas qu'une façon de faire de la clean architecture puisqu'il ne s'agit en réalité que d'un concept qui vise à séparer le code métier des dépendances d'infrastructures ou d'interface utilisateur. Par ailleurs, j'ai ici fait le choix de coder cette API avec le langage PHP et le framework Laravel.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Pourquoi Laravel ?
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+En réalité, je n'ai pas choisi Laravel car je le pensais plus adapté mais parce que je voulais voir comment adapter Laravel à ce type d'architecture. Finalement, je suis resté sur une structure de dossiers propre à Laravel et je n'ai pas trop joué avec mais on vois que mon code métier, situé dans le dossier `domain`, est bien agnostique de Laravel.
 
-## Laravel Sponsors
+## Aller plus loin
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+Si vous souhaitez aller plus loin, voici quelques idées de fonctionnalités que vous pourriez implémenter :
+- une image de profil ;
+- un système de suggestions de relations ;
+- suppression du compte (obligatoire pour un vrai projet)...
 
-### Premium Partners
+## J'ai trouvé des erreurs dans la correction
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[OP.GG](https://op.gg)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Si vous trouvez des erreurs ou que vous trouvez que certaines parties du code manquent de rigueur, n'hésitez surtout pas à faire une issue voir même une pull request pour la corriger.
