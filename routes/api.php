@@ -23,4 +23,5 @@ Route::middleware('auth:sanctum')->get('/logout', 'Auth\LogoutController');
 Route::middleware('guest:sanctum')->post('/register', 'Auth\RegisterController');
 
 Route::middleware('auth:sanctum')->put('/posts/{id}', 'Post\EditPostController');
+Route::middleware('auth:sanctum')->delete('/posts/{id}', 'Post\DeletePostController');
 Route::middleware('auth:sanctum')->post('/posts', 'Post\CreatePostController');

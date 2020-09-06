@@ -65,4 +65,11 @@ class PostRepository implements PostGateway
             )
         );
     }
+
+    public function delete(UuidInterface $id): void
+    {
+        if (!EloquentPost::destroy($id->toString())) {
+            throw new PostNotFoundException();
+        }
+    }
 }
