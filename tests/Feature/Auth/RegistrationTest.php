@@ -13,7 +13,6 @@ class RegistrationTest extends TestCase
 
     public function testSuccessful()
     {
-        $this->withoutExceptionHandling();
         // Test initialization
         $inputs = factory(EloquentUser::class)
             ->raw([
@@ -21,7 +20,7 @@ class RegistrationTest extends TestCase
             ]);
 
         // Test actions
-        $response = $this->post(
+        $response = $this->postJson(
             '/api/register',
             array_merge(
                 $inputs,
@@ -39,10 +38,10 @@ class RegistrationTest extends TestCase
 
     /**
      * @dataProvider getInvalidInput
-     * @param string $username
-     * @param string $email
-     * @param string $password
-     * @param string $passwordConfirmation
+     * @param string|null $username
+     * @param string|null $email
+     * @param string|null $password
+     * @param string|null $passwordConfirmation
      */
     public function testReturnErrorsListWhenInvalidInputs(
         ?string $username,
@@ -59,7 +58,7 @@ class RegistrationTest extends TestCase
         ];
 
         // Test actions
-        $response = $this->post('/api/register', $inputs, ['Accept' => 'application/json']);
+        $response = $this->postJson('/api/register', $inputs);
 
         // Test assertions
         $response->assertStatus(422);

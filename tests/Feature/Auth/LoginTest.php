@@ -31,7 +31,7 @@ class LoginTest extends TestCase
         ];
 
         // Test actions
-        $response = $this->post('/api/login', $credentials);
+        $response = $this->postJson('/api/login', $credentials);
 
         // Test assertions
         $response->assertStatus(200);
@@ -48,7 +48,7 @@ class LoginTest extends TestCase
         ];
 
         // Test actions
-        $response = $this->post('/api/login', $credentials);
+        $response = $this->postJson('/api/login', $credentials);
 
         // Test assertions
         $response->assertStatus(404);
@@ -65,7 +65,7 @@ class LoginTest extends TestCase
         ];
 
         // Test actions
-        $response = $this->post('/api/login', $credentials);
+        $response = $this->postJson('/api/login', $credentials);
 
         $response->assertRedirect();
     }
@@ -77,7 +77,7 @@ class LoginTest extends TestCase
         $this->actingAs($this->user);
 
         // Test actions
-        $response = $this->get('/api/logout');
+        $response = $this->getJson('/api/logout');
 
         // Test assertions
         $response->assertStatus(204);

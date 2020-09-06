@@ -30,7 +30,7 @@ class CreatePostTest extends TestCase
         ]);
 
         // Test actions
-        $response = $this->post('/api/posts', $postInputs);
+        $response = $this->postJson('/api/posts', $postInputs);
 
         // Test assertions
         $response->assertStatus(201);
@@ -50,9 +50,7 @@ class CreatePostTest extends TestCase
         ]);
 
         // Test actions
-        $response = $this->post('/api/posts', $postInputs, [
-            'Accept' => 'application/json'
-        ]);
+        $response = $this->postJson('/api/posts', $postInputs);
 
         // Test assertions
         $response->assertStatus(422);

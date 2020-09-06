@@ -30,9 +30,7 @@ class EditPostTest extends TestCase
         ];
 
         // Test actions
-        $response = $this->put("/api/posts/" . $this->postToEdit->id, $inputs, [
-            'Accept' => 'application/json'
-        ]);
+        $response = $this->putJson("/api/posts/" . $this->postToEdit->id, $inputs);
 
         // Test assertions
         $response->assertStatus(200);
@@ -48,9 +46,7 @@ class EditPostTest extends TestCase
         ];
 
         // Test actions
-        $response = $this->put("/api/posts/" . $this->postToEdit->id, $inputs, [
-            'Accept' => 'application/json'
-        ]);
+        $response = $this->putJson("/api/posts/" . $this->postToEdit->id, $inputs);
 
         // Test assertions
         $response->assertStatus(422);
