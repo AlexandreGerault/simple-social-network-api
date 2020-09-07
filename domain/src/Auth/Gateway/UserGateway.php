@@ -25,4 +25,10 @@ interface UserGateway
     public function registers(User $user): void;
 
     public function update(User $user): User;
+
+    /**
+     * @param string $search
+     * @return User[]
+     */
+    public function search(string $search): array;
 }
