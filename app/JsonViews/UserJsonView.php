@@ -2,24 +2,23 @@
 
 namespace App\JsonViews;
 
-use App\ViewModels\UserViewModel;
 use Domain\SSN\Auth\ViewModels\UserViewModelInterface;
+use JsonSerializable;
 
-class UserJsonView implements JsonViewInterface
+class UserJsonView implements JsonSerializable
 {
     private UserViewModelInterface $vm;
 
     /**
      * UserJsonView constructor.
-     * @param UserViewModel $vm
+     * @param UserViewModelInterface $vm
      */
     public function __construct(UserViewModelInterface $vm)
     {
         $this->vm = $vm;
     }
 
-
-    public function asArray(): array
+    public function jsonSerialize()
     {
         return [
             'data' => [

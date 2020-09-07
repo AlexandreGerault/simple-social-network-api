@@ -7,6 +7,7 @@ use Domain\SSN\Auth\Entity\User;
 use GoldSpecDigital\LaravelEloquentUUID\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Notifications\Notifiable;
+use Ramsey\Uuid\Uuid;
 
 class EloquentUser extends Authenticatable
 {
@@ -48,7 +49,24 @@ class EloquentUser extends Authenticatable
             ->setAttribute('username', $user->getUsername())
             ->setAttribute('email', $user->getEmail())
             ->setAttribute('password', $user->getPassword())
-        ->save();
+            ->save();
+    }
+
+    public static function updateFromUser(User $user): User
+    {
+        ($eloquentUser = EloquentUser::find($user->getId()->toString()))
+            ->setAttribute('id', $user->getId()->toString())
+            ->setAttribute('username', $user->getUsername())
+            ->setAttribute('email', $user->getEmail())
+            ->setAttribute('password', $user->getPassword())
+            ->save();
+
+        return new User(
+            Uuid::fromString($eloquentUser->id),
+            $eloquentUser->username,
+            $eloquentUser->email,
+            $eloquentUser->password
+        );
     }
 
     public function posts(): HasMany

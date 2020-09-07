@@ -10,7 +10,7 @@ Voici une checklist des use-cases du projet :
 - [X] Se connecter
 - [X] Se déconnecter
 - [X] S'inscrire
-- [ ] Modifier son profil
+- [X] Modifier son profil
 - [X] Créer un post
 - [X] Éditer un post
 - [X] Supprimer un post

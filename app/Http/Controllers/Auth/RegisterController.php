@@ -45,7 +45,7 @@ class RegisterController extends Controller
         );
 
         $this->useCase->execute($registrationRequest, $this->presenter);
-        $jsonView = (new UserJsonView($this->presenter->getViewModel()))->asArray();
+        $jsonView = new UserJsonView($this->presenter->getViewModel());
 
         return new JsonResponse($jsonView, 201);
     }
