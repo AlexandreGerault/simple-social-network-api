@@ -8,6 +8,7 @@ use Domain\SSN\Auth\UseCases\EditProfile\EditProfile;
 use Domain\SSN\Auth\UseCases\EditProfile\EditProfilePresenterInterface;
 use Domain\SSN\Auth\UseCases\EditProfile\EditProfileRequest;
 use Domain\SSN\Auth\UseCases\EditProfile\EditProfileResponse;
+use Domain\SSN\Auth\ViewModels\UserViewModelInterface;
 use Domain\Tests\Adapters\Repositories\UserRepository;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
@@ -35,6 +36,10 @@ class EditProfileTest extends TestCase
             public function presents(EditProfileResponse $response): void
             {
                 $this->response = $response;
+            }
+
+            public function getViewModel(): UserViewModelInterface
+            {
             }
         };
 

@@ -58,7 +58,7 @@ class LoginController extends Controller
                 'email' => $loginRequest->getEmail(),
                 'password' => $loginRequest->getPlainPassword()
             ]);
-            $jsonView = (new UserJsonView($this->presenter->getViewModel()))->asArray();
+            $jsonView = new UserJsonView($this->presenter->getViewModel());
         } catch (InvalidCredentialsException $e) {
             return new JsonResponse(['errors' =>
                 [

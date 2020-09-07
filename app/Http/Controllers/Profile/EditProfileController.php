@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Profile;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\EditProfileFormRequest;
+use App\JsonViews\UserJsonView;
 use Domain\SSN\Auth\Gateway\UserGateway;
 use Domain\SSN\Auth\UseCases\EditProfile\EditProfile;
 use Domain\SSN\Auth\UseCases\EditProfile\EditProfilePresenterInterface;
@@ -41,6 +42,10 @@ class EditProfileController extends Controller
             $request->get('email')
         );
         $this->useCase->execute($updateProfileRequest, $this->presenter);
-        return new JsonResponse(null, 200);
+
+        return new JsonResponse(
+            new UserJsonView($this->presenter->getViewModel()),
+            200
+        );
     }
 }
