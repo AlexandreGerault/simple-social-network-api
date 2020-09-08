@@ -56,6 +56,10 @@ class SearchUserTest extends TestCase
             {
                 $this->response = $response;
             }
+
+            public function getViewModel()
+            {
+            }
         };
 
         $this->useCase = new SearchUser($this->userGateway);

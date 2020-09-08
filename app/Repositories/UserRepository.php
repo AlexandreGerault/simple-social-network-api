@@ -54,4 +54,22 @@ class UserRepository extends BaseRepository implements UserGateway
     {
         return EloquentUser::updateFromUser($user);
     }
+
+    /**
+     * @param string $search
+     * @return User[]
+     */
+    public function search(string $search): array
+    {
+        $eloquentUsers = EloquentUser::where('email', 'LIKE', "%${search}%")
+            ->orWhere('username', 'LIKE', "%${search}%")
+            ->get();
+
+        return $eloquentUsers->map(fn ($user) => new User(
+            Uuid::fromString($user->id),
+            $user->username,
+            $user->email,
+            $user->password
+        ))->toArray();
+    }
 }

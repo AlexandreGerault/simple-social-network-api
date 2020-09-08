@@ -2,13 +2,18 @@
 
 namespace Domain\SSN\Users\UseCases\SearchUser;
 
+use Domain\SSN\Auth\Entity\User;
+
 class SearchUserResponse
 {
+    /**
+     * @var User[] $results;
+     */
     private array $results;
 
     /**
      * SearchUserResponse constructor.
-     * @param array $results
+     * @param User[] $results
      */
     public function __construct(array $results)
     {
