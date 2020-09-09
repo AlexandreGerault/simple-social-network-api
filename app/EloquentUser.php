@@ -42,31 +42,40 @@ class EloquentUser extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public static function createFromUser(User $user)
+    public static function fromUser(User $user, self $eloquent = null)
     {
-        (new self())
+        return ($eloquent ?? new self())
             ->setAttribute('id', $user->getId()->toString())
             ->setAttribute('username', $user->getUsername())
             ->setAttribute('email', $user->getEmail())
-            ->setAttribute('password', $user->getPassword())
-            ->save();
+            ->setAttribute('password', $user->getPassword());
     }
 
-    public static function updateFromUser(User $user): User
+    public static function toUser(self $eloquentUser): User
     {
-        ($eloquentUser = EloquentUser::find($user->getId()->toString()))
-            ->setAttribute('id', $user->getId()->toString())
-            ->setAttribute('username', $user->getUsername())
-            ->setAttribute('email', $user->getEmail())
-            ->setAttribute('password', $user->getPassword())
-            ->save();
-
         return new User(
             Uuid::fromString($eloquentUser->id),
             $eloquentUser->username,
             $eloquentUser->email,
             $eloquentUser->password
         );
+    }
+
+    public static function createFromUser(User $user)
+    {
+        self::fromUser($user)->save();
+    }
+
+    public static function updateFromUser(User $user): User
+    {
+        (
+            $eloquentUser = self::fromUser(
+                $user,
+                EloquentUser::find($user->getId()->toString())
+            )
+        )->save();
+
+        return self::toUser($eloquentUser);
     }
 
     public function posts(): HasMany

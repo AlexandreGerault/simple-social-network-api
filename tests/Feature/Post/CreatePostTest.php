@@ -22,7 +22,6 @@ class CreatePostTest extends TestCase
 
     public function testSuccessful()
     {
-        $this->withoutExceptionHandling();
         // Test initialization
         $this->actingAs($this->actor);
         $postInputs = factory(EloquentPost::class)->raw([

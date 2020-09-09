@@ -6,7 +6,6 @@ use App\EloquentUser;
 use Domain\SSN\Auth\Entity\User;
 use Domain\SSN\Auth\Exceptions\UserNotFoundException;
 use Domain\SSN\Auth\Gateway\UserGateway;
-use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
 class UserRepository extends BaseRepository implements UserGateway
@@ -23,12 +22,7 @@ class UserRepository extends BaseRepository implements UserGateway
         $dbUser = EloquentUser::where('email', $email)->first();
 
         if ($dbUser) {
-            return new User(
-                Uuid::fromString($dbUser->id),
-                $dbUser->username,
-                $dbUser->email,
-                $dbUser->password
-            );
+            return EloquentUser::toUser($dbUser);
         }
         throw new UserNotFoundException();
     }
@@ -42,12 +36,7 @@ class UserRepository extends BaseRepository implements UserGateway
     {
         $dbUser = EloquentUser::find($id->toString());
 
-        return new User(
-            Uuid::fromString($dbUser->id),
-            $dbUser->username,
-            $dbUser->email,
-            $dbUser->password
-        );
+        return EloquentUser::toUser($dbUser);
     }
 
     public function update(User $user): User
@@ -65,11 +54,6 @@ class UserRepository extends BaseRepository implements UserGateway
             ->orWhere('username', 'LIKE', "%${search}%")
             ->get();
 
-        return $eloquentUsers->map(fn ($user) => new User(
-            Uuid::fromString($user->id),
-            $user->username,
-            $user->email,
-            $user->password
-        ))->toArray();
+        return $eloquentUsers->map(fn ($user) => EloquentUser::toUser($user))->toArray();
     }
 }

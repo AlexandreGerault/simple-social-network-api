@@ -7,14 +7,12 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CreatePostRequest as CreatePostFormRequest;
 use App\JsonViews\PostJsonView;
 use Assert\AssertionFailedException;
-use Domain\SSN\Auth\Entity\User;
 use Domain\SSN\Posts\Gateway\PostGateway;
 use Domain\SSN\Posts\UseCases\CreatePost\CreatePost;
 use Domain\SSN\Posts\UseCases\CreatePost\CreatePostPresenterInterface;
 use Domain\SSN\Posts\UseCases\CreatePost\CreatePostRequest;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Http\JsonResponse;
-use Ramsey\Uuid\Uuid;
 
 class CreatePostController extends Controller
 {
@@ -52,12 +50,7 @@ class CreatePostController extends Controller
 
         $this->useCase->execute(new CreatePostRequest(
             $request->get('content'),
-            new User(
-                Uuid::fromString($loggedUser->id),
-                $loggedUser->username,
-                $loggedUser->email,
-                $loggedUser->password
-            )
+            EloquentUser::toUser($loggedUser)
         ), $this->presenter);
 
         return new JsonResponse(new PostJsonView($this->presenter->getViewModel()), 201);
