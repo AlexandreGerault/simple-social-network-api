@@ -2,8 +2,8 @@
 
 namespace App\Repositories;
 
+use App\EloquentUser;
 use App\Models\EloquentPost;
-use Domain\SSN\Auth\Entity\User;
 use Domain\SSN\Posts\Entity\Post;
 use Domain\SSN\Posts\Exceptions\PostNotFoundException;
 use Domain\SSN\Posts\Gateway\PostGateway;
@@ -29,12 +29,7 @@ class PostRepository implements PostGateway
             return new Post(
                 Uuid::fromString($eloquentPost->id),
                 $eloquentPost->content,
-                new User(
-                    Uuid::fromString($eloquentPost->author->id),
-                    $eloquentPost->author->username,
-                    $eloquentPost->author->email,
-                    $eloquentPost->author->password
-                )
+                EloquentUser::toUser($eloquentPost->author)
             );
         }
 
@@ -57,12 +52,7 @@ class PostRepository implements PostGateway
         return new Post(
             Uuid::fromString($eloquentPost->id),
             $eloquentPost->content,
-            new User(
-                Uuid::fromString($eloquentPost->author->id),
-                $eloquentPost->author->username,
-                $eloquentPost->author->email,
-                $eloquentPost->author->password
-            )
+            EloquentUser::toUser($eloquentPost->author)
         );
     }
 

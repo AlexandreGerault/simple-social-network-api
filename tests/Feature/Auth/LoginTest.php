@@ -23,7 +23,6 @@ class LoginTest extends TestCase
 
     public function testSuccessful()
     {
-        $this->withoutExceptionHandling();
         // Test initialization
         $credentials = [
             'email' => 'good@domain.tld',
@@ -40,7 +39,6 @@ class LoginTest extends TestCase
 
     public function testFails()
     {
-        $this->withoutExceptionHandling();
         // Test initialization
         $credentials = [
             'email' => 'bad@domain.tld',
@@ -72,7 +70,6 @@ class LoginTest extends TestCase
 
     public function testAuthenticatedCanLogout()
     {
-        $this->withoutExceptionHandling();
         // Test initialization
         $this->actingAs($this->user);
 

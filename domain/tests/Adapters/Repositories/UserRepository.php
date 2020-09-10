@@ -17,7 +17,6 @@ class UserRepository implements UserGateway
 
     /**
      * UserRepository constructor.
-     * @param User[] $users
      */
     public function __construct()
     {
@@ -89,5 +88,18 @@ class UserRepository implements UserGateway
             }
         }
         throw new UserNotFoundException();
+    }
+
+    public function search(string $search): array
+    {
+        $results = array();
+
+        foreach ($this->users as $user) {
+            if (preg_match("/${search}/i", $user->getUsername()) || preg_match("/${search}/i", $user->getEmail())) {
+                $results[] = $user;
+            }
+        }
+
+        return $results;
     }
 }
