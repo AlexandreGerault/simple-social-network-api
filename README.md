@@ -17,7 +17,7 @@ Voici une checklist des use-cases du projet :
 - [ ] Voir un profil
 - [ ] S'abonner à un utilisateur
 - [ ] Se désabonner d'un utilisateur
-- [ ] Chercher un utilisateur
+- [X] Chercher un utilisateur
 - [ ] Afficher un fil d'actualités
 - [ ] Bannir un utilisateur (admin)
 - [ ] Supprimer un post (admin)
@@ -29,7 +29,7 @@ Dans ce repository, j'implémente la clean architecture à ma façon. Il n'y a p
 
 ### Pourquoi Laravel ?
 
-En réalité, je n'ai pas choisi Laravel car je le pensais plus adapté mais parce que je voulais voir comment adapter Laravel à ce type d'architecture. Finalement, je suis resté sur une structure de dossiers propre à Laravel et je n'ai pas trop joué avec mais on vois que mon code métier, situé dans le dossier `domain`, est bien agnostique de Laravel.
+En réalité, je n'ai pas choisi Laravel car je le pensais plus adapté mais parce que je voulais voir comment adapter Laravel à ce type d'architecture. Finalement, je suis resté sur une structure de dossiers propre à Laravel et je n'ai pas trop joué avec mais on voit que mon code métier, situé dans le dossier `domain`, est bien agnostique de Laravel.
 
 ## Aller plus loin
 
