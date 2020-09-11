@@ -56,4 +56,8 @@ class UserRepository extends BaseRepository implements UserGateway
 
         return $eloquentUsers->map(fn ($user) => EloquentUser::toUser($user))->toArray();
     }
+
+    public function getUserByIdAndWithPosts(UuidInterface $id): User
+    {
+    }
 }

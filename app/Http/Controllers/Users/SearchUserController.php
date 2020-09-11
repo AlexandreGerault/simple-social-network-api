@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Users;
 
 use App\Http\Controllers\Controller;
 use App\JsonViews\UserCollectionJsonView;
+use Assert\AssertionFailedException;
 use Domain\SSN\Auth\Gateway\UserGateway;
 use Domain\SSN\Users\UseCases\SearchUser\SearchUser;
 use Domain\SSN\Users\UseCases\SearchUser\SearchUserPresenterInterface;
@@ -35,6 +36,7 @@ class SearchUserController extends Controller
      *
      * @param Request $request
      * @return JsonResponse
+     * @throws AssertionFailedException
      */
     public function __invoke(Request $request)
     {

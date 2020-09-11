@@ -22,6 +22,13 @@ interface UserGateway
      */
     public function getUserById(UuidInterface $id): User;
 
+    /**
+     * @param UuidInterface $id
+     * @return User
+     * @throws UserNotFoundException
+     */
+    public function getUserByIdAndWithPosts(UuidInterface $id): User;
+
     public function registers(User $user): void;
 
     public function update(User $user): User;

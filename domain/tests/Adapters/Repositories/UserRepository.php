@@ -81,7 +81,8 @@ class UserRepository implements UserGateway
                     $user->getId(),
                     $user->getUsername(),
                     $user->getEmail(),
-                    $user->getPassword()
+                    $user->getPassword(),
+                    $user->getPosts()
                 );
 
                 return $loop_user;
@@ -101,5 +102,15 @@ class UserRepository implements UserGateway
         }
 
         return $results;
+    }
+
+    public function getUserByIdAndWithPosts(UuidInterface $id): User
+    {
+        foreach ($this->users as $user) {
+            if ($user->getId()->equals($id)) {
+                return $user;
+            }
+        }
+        throw new UserNotFoundException();
     }
 }
