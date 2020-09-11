@@ -4,6 +4,7 @@ namespace App;
 
 use App\Models\EloquentPost;
 use Domain\SSN\Auth\Entity\User;
+use Domain\SSN\Posts\Entity\Post;
 use GoldSpecDigital\LaravelEloquentUUID\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Notifications\Notifiable;
@@ -53,12 +54,16 @@ class EloquentUser extends Authenticatable
 
     public static function toUser(self $eloquentUser): User
     {
-        return new User(
+        ($user = new User(
             Uuid::fromString($eloquentUser->id),
             $eloquentUser->username,
             $eloquentUser->email,
-            $eloquentUser->password
+            $eloquentUser->password,
+        ))->addPosts(
+            $eloquentUser->posts->map(fn ($post) => new Post(Uuid::fromString($post->id), $post->content, $user))->toArray()
         );
+
+        return $user;
     }
 
     public static function createFromUser(User $user)

@@ -25,6 +25,7 @@ class SearchUserTest extends TestCase
 
     public function testSearchSuccessful()
     {
+        $this->withoutExceptionHandling();
         // Test initialization
         factory(EloquentUser::class)->create([
             'username' => 'Jean Paul',

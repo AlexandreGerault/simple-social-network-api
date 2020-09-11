@@ -9,6 +9,7 @@ use Domain\SSN\Users\UseCases\ShowUser\ShowUser;
 use Domain\SSN\Users\UseCases\ShowUser\ShowUserPresenterInterface;
 use Domain\SSN\Users\UseCases\ShowUser\ShowUserRequest;
 use Domain\SSN\Users\UseCases\ShowUser\ShowUserResponse;
+use Domain\SSN\Users\ViewModels\UserWithPostsViewModelInterface;
 use Domain\Tests\Adapters\Repositories\UserRepository;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
@@ -45,6 +46,10 @@ class ShowUserTest extends TestCase
             public function presents(ShowUserResponse $response): void
             {
                 $this->response = $response;
+            }
+
+            public function getViewModel(): UserWithPostsViewModelInterface
+            {
             }
         };
 

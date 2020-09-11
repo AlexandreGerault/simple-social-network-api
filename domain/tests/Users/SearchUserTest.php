@@ -9,6 +9,7 @@ use Domain\SSN\Users\UseCases\SearchUser\SearchUser;
 use Domain\SSN\Users\UseCases\SearchUser\SearchUserPresenterInterface;
 use Domain\SSN\Users\UseCases\SearchUser\SearchUserRequest;
 use Domain\SSN\Users\UseCases\SearchUser\SearchUserResponse;
+use Domain\SSN\Users\ViewModels\UserCollectionViewModelInterface;
 use Domain\Tests\Adapters\Repositories\UserRepository;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
@@ -57,7 +58,7 @@ class SearchUserTest extends TestCase
                 $this->response = $response;
             }
 
-            public function getViewModel()
+            public function getViewModel(): UserCollectionViewModelInterface
             {
             }
         };

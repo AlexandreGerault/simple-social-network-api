@@ -16,7 +16,7 @@ class SearchUserPresenter implements SearchUserPresenterInterface
         $this->vm = new UserCollectionViewModel($response->getResults());
     }
 
-    public function getViewModel()
+    public function getViewModel(): UserCollectionViewModelInterface
     {
         return $this->vm;
     }
