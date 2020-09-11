@@ -14,7 +14,7 @@ Voici une checklist des use-cases du projet :
 - [X] Créer un post
 - [X] Éditer un post
 - [X] Supprimer un post
-- [ ] Voir un profil
+- [X] Voir un profil
 - [ ] S'abonner à un utilisateur
 - [ ] Se désabonner d'un utilisateur
 - [X] Chercher un utilisateur
