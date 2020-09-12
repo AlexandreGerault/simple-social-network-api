@@ -13,7 +13,14 @@ class User
     private string $username;
     private string $email;
     private string $password;
-    private ?array $posts;
+    /**
+     * @var Post[]
+     */
+    private array $posts;
+    /**
+     * @var User[]
+     */
+    private array $followings;
 
     /**
      * User constructor.
@@ -22,14 +29,22 @@ class User
      * @param string $email
      * @param string $password
      * @param Post[] $posts
+     * @param User[] $followings
      */
-    public function __construct(UuidInterface $id, string $username, string $email, string $password, array $posts = [])
-    {
+    public function __construct(
+        UuidInterface $id,
+        string $username,
+        string $email,
+        string $password,
+        array $posts = [],
+        array $followings = []
+    ) {
         $this->id = $id;
         $this->username = $username;
         $this->email = $email;
         $this->password = $password;
         $this->posts = $posts;
+        $this->followings = $followings;
     }
 
     public static function createFromRegistration(RegistrationRequest $request)
@@ -101,5 +116,13 @@ class User
     {
         $this->posts[] = $post;
         return $this;
+    }
+
+    /**
+     * @return self[]
+     */
+    public function getFollowings(): array
+    {
+        return $this->followings;
     }
 }

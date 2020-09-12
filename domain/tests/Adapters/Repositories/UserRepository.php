@@ -82,7 +82,8 @@ class UserRepository implements UserGateway
                     $user->getUsername(),
                     $user->getEmail(),
                     $user->getPassword(),
-                    $user->getPosts()
+                    $user->getPosts(),
+                    $user->getFollowings()
                 );
 
                 return $loop_user;
@@ -112,5 +113,19 @@ class UserRepository implements UserGateway
             }
         }
         throw new UserNotFoundException();
+    }
+
+    public function makeUserFollow(User $authUser, User $userToFollow): User
+    {
+        return new User(
+            $authUser->getId(),
+            $authUser->getUsername(),
+            $authUser->getEmail(),
+            $authUser->getPassword(),
+            $authUser->getPosts(),
+            [
+                $userToFollow
+            ]
+        );
     }
 }
