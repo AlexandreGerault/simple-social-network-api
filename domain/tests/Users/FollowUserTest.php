@@ -5,6 +5,7 @@ namespace Domain\Tests\Users;
 use Domain\SSN\Auth\Entity\User;
 use Domain\SSN\Auth\Exceptions\UserNotFoundException;
 use Domain\SSN\Auth\Gateway\AuthenticationGateway;
+use Domain\SSN\Auth\ViewModels\UserViewModelInterface;
 use Domain\SSN\Users\UseCases\FollowUser\FollowUser;
 use Domain\SSN\Users\UseCases\FollowUser\FollowUserPresenterInterface;
 use Domain\SSN\Users\UseCases\FollowUser\FollowUserRequest;
@@ -43,6 +44,10 @@ class FollowUserTest extends TestCase
             public function presents(FollowUserResponse $response): void
             {
                 $this->response = $response;
+            }
+
+            public function getViewModel(): UserViewModelInterface
+            {
             }
         };
 

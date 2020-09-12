@@ -45,8 +45,15 @@ class FollowUserController extends Controller
         try {
             $this->useCase->execute($followRequest, $this->presenter);
         } catch (UserNotFoundException $e) {
-            return new JsonResponse(null, 404);
+            return new JsonResponse([
+                'data' => [
+                    'error' => 'Vous ne pouvez pas suivre un utilisateur inexistant'
+                ]
+            ], 404);
         }
-        return new JsonResponse(null, 204);
+
+        return new JsonResponse([
+            "data" => ["message" => "Vous suivez " . $this->presenter->getViewModel()->getUsername()]
+        ], 204);
     }
 }
