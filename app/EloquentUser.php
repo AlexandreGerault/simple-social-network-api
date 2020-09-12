@@ -6,6 +6,7 @@ use App\Models\EloquentPost;
 use Domain\SSN\Auth\Entity\User;
 use Domain\SSN\Posts\Entity\Post;
 use GoldSpecDigital\LaravelEloquentUUID\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Notifications\Notifiable;
 use Ramsey\Uuid\Uuid;
@@ -86,5 +87,15 @@ class EloquentUser extends Authenticatable
     public function posts(): HasMany
     {
         return $this->hasMany(EloquentPost::class, 'user_id', 'id');
+    }
+
+    public function followings(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            EloquentUser::class,
+            'follows',
+            'user_id',
+            'following_id'
+        );
     }
 }

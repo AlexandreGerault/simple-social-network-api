@@ -24,6 +24,7 @@ Route::middleware('guest:sanctum')->post('/register', 'Auth\RegisterController')
 
 Route::middleware('auth:sanctum')->patch('/users/{id}', 'Profile\EditProfileController');
 Route::get('/users/search', 'Users\SearchUserController');
+Route::middleware('auth:sanctum')->post('/users/{id}/follow', 'Users\FollowUserController');
 Route::get('/users/{id}', 'Users\ShowUserController');
 
 Route::middleware('auth:sanctum')->put('/posts/{id}', 'Post\EditPostController');

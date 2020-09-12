@@ -38,4 +38,11 @@ interface UserGateway
      * @return User[]
      */
     public function search(string $search): array;
+
+    /**
+     * @param User $authUser
+     * @param User $userToFollow
+     * @return User
+     */
+    public function makeUserFollow(User $authUser, User $userToFollow): User;
 }

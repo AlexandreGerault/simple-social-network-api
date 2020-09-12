@@ -5,10 +5,11 @@ namespace App\Repositories;
 use App\EloquentUser;
 use Domain\SSN\Auth\Entity\User;
 use Domain\SSN\Auth\Exceptions\UserNotFoundException;
+use Domain\SSN\Auth\Gateway\AuthenticationGateway;
 use Domain\SSN\Auth\Gateway\UserGateway;
 use Ramsey\Uuid\UuidInterface;
 
-class UserRepository extends BaseRepository implements UserGateway
+class UserRepository extends BaseRepository implements UserGateway, AuthenticationGateway
 {
     protected string $table = 'users';
 
@@ -19,7 +20,10 @@ class UserRepository extends BaseRepository implements UserGateway
      */
     public function getUserByEmail(string $email): User
     {
-        $dbUser = EloquentUser::where('email', $email)->first();
+        /**
+         * @var EloquentUser $dbUser|null
+         */
+        $dbUser = EloquentUser::query()->where('email', $email)->first();
 
         if ($dbUser) {
             return EloquentUser::toUser($dbUser);
@@ -32,11 +36,23 @@ class UserRepository extends BaseRepository implements UserGateway
         EloquentUser::createFromUser($user);
     }
 
+    /**
+     * @param UuidInterface $id
+     * @return User
+     * @throws UserNotFoundException
+     */
     public function getUserById(UuidInterface $id): User
     {
-        $dbUser = EloquentUser::find($id->toString());
+        /**
+         * @var EloquentUser|null $dbUser
+         */
+        $dbUser = EloquentUser::query()->find($id->toString());
 
-        return EloquentUser::toUser($dbUser);
+        if ($dbUser) {
+            return EloquentUser::toUser($dbUser);
+        }
+
+        throw new UserNotFoundException();
     }
 
     public function update(User $user): User
@@ -50,7 +66,7 @@ class UserRepository extends BaseRepository implements UserGateway
      */
     public function search(string $search): array
     {
-        $eloquentUsers = EloquentUser::where('email', 'LIKE', "%${search}%")
+        $eloquentUsers = EloquentUser::query()->where('email', 'LIKE', "%${search}%")
             ->orWhere('username', 'LIKE', "%${search}%")
             ->get();
 
@@ -65,5 +81,23 @@ class UserRepository extends BaseRepository implements UserGateway
         $eloquentUser = EloquentUser::with('posts')->where('id', $id->toString())->first();
 
         return EloquentUser::toUser($eloquentUser);
+    }
+
+    public function makeUserFollow(User $authUser, User $userToFollow): User
+    {
+        /**
+         * @var EloquentUser $eloquentUser
+         */
+        $eloquentUser = EloquentUser::query()
+            ->where('id', $authUser->getId()->toString())
+            ->first();
+        $eloquentUser->followings()->attach($userToFollow->getId()->toString());
+
+        return EloquentUser::toUser($eloquentUser);
+    }
+
+    public function getAuthenticatedUser(): User
+    {
+        return EloquentUser::toUser(auth()->user());
     }
 }
