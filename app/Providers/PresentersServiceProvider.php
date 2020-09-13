@@ -10,6 +10,7 @@ use App\Presenters\Post\EditPostPresenter;
 use App\Presenters\Users\FollowUserPresenter;
 use App\Presenters\Users\SearchUserPresenter;
 use App\Presenters\Users\ShowUserPresenter;
+use App\Presenters\Users\UnfollowUserPresenter;
 use Domain\SSN\Auth\UseCases\EditProfile\EditProfilePresenterInterface;
 use Domain\SSN\Auth\UseCases\Login\LoginPresenterInterface;
 use Domain\SSN\Posts\UseCases\CreatePost\CreatePostPresenterInterface;
@@ -18,6 +19,7 @@ use Domain\SSN\Posts\UseCases\EditPost\EditPostPresenterInterface;
 use Domain\SSN\Users\UseCases\FollowUser\FollowUserPresenterInterface;
 use Domain\SSN\Users\UseCases\SearchUser\SearchUserPresenterInterface;
 use Domain\SSN\Users\UseCases\ShowUser\ShowUserPresenterInterface;
+use Domain\SSN\Users\UseCases\UnfollowUser\UnfollowUserPresenterInterface;
 use Illuminate\Support\ServiceProvider;
 
 class PresentersServiceProvider extends ServiceProvider
@@ -34,6 +36,7 @@ class PresentersServiceProvider extends ServiceProvider
         $this->app->bind(SearchUserPresenterInterface::class, SearchUserPresenter::class);
         $this->app->bind(ShowUserPresenterInterface::class, ShowUserPresenter::class);
         $this->app->bind(FollowUserPresenterInterface::class, FollowUserPresenter::class);
+        $this->app->bind(UnfollowUserPresenterInterface::class, UnfollowUserPresenter::class);
         $this->app->bind(CreatePostPresenterInterface::class, CreatePostPresenter::class);
         $this->app->bind(EditPostPresenterInterface::class, EditPostPresenter::class);
         $this->app->bind(DeletePostPresenterInterface::class, DeletePostPresenter::class);

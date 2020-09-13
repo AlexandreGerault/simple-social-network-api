@@ -96,6 +96,19 @@ class UserRepository extends BaseRepository implements UserGateway, Authenticati
         return EloquentUser::toUser($eloquentUser);
     }
 
+    public function makeUserUnfollow(User $authUser, User $userToFollow): User
+    {
+        /**
+         * @var EloquentUser $eloquentUser
+         */
+        $eloquentUser = EloquentUser::query()
+            ->where('id', $authUser->getId()->toString())
+            ->first();
+        $eloquentUser->followings()->detach($userToFollow->getId()->toString());
+
+        return EloquentUser::toUser($eloquentUser);
+    }
+
     public function getAuthenticatedUser(): User
     {
         return EloquentUser::toUser(auth()->user());

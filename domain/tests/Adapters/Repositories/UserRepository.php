@@ -128,4 +128,19 @@ class UserRepository implements UserGateway
             ]
         );
     }
+
+    public function makeUserUnfollow(User $authUser, User $userToFollow): User
+    {
+        return new User(
+            $authUser->getId(),
+            $authUser->getUsername(),
+            $authUser->getEmail(),
+            $authUser->getPassword(),
+            $authUser->getPosts(),
+            array_filter(
+                $authUser->getFollowings(),
+                fn($user) => $user->getId() !== $userToFollow->getId()
+            )
+        );
+    }
 }
