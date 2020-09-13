@@ -45,4 +45,6 @@ interface UserGateway
      * @return User
      */
     public function makeUserFollow(User $authUser, User $userToFollow): User;
+
+    public function makeUserUnfollow(User $authUser, User $userToFollow): User;
 }
