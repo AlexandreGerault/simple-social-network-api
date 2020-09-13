@@ -2,6 +2,7 @@
 
 namespace Domain\SSN\Users\UseCases\UnfollowUser;
 
+use Domain\SSN\Auth\Exceptions\UserNotFoundException;
 use Domain\SSN\Auth\Gateway\AuthenticationGateway;
 use Domain\SSN\Auth\Gateway\UserGateway;
 
@@ -21,6 +22,11 @@ class UnfollowUser
         $this->authenticationGateway = $authenticationGateway;
     }
 
+    /**
+     * @param UnfollowUserRequest $request
+     * @param UnfollowUserPresenterInterface $presenter
+     * @throws UserNotFoundException
+     */
     public function execute(UnfollowUserRequest $request, UnfollowUserPresenterInterface $presenter)
     {
         $userToUnfollow = $this->gateway->getUserById($request->getId());

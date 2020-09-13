@@ -5,6 +5,7 @@ namespace Domain\Tests\Users;
 use Domain\SSN\Auth\Entity\User;
 use Domain\SSN\Auth\Exceptions\UserNotFoundException;
 use Domain\SSN\Auth\Gateway\AuthenticationGateway;
+use Domain\SSN\Auth\ViewModels\UserViewModelInterface;
 use Domain\SSN\Users\UseCases\UnfollowUser\UnfollowUser;
 use Domain\SSN\Users\UseCases\UnfollowUser\UnfollowUserPresenterInterface;
 use Domain\SSN\Users\UseCases\UnfollowUser\UnfollowUserRequest;
@@ -69,6 +70,10 @@ class UnfollowUserTest extends TestCase
             public function presents(UnfollowUserResponse $response): void
             {
                 $this->response = $response;
+            }
+
+            public function getViewModel(): UserViewModelInterface
+            {
             }
         };
     }
