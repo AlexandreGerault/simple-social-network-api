@@ -55,13 +55,33 @@ class EloquentUser extends Authenticatable
 
     public static function toUser(self $eloquentUser): User
     {
-        ($user = new User(
+        $user = new User(
             Uuid::fromString($eloquentUser->id),
             $eloquentUser->username,
             $eloquentUser->email,
-            $eloquentUser->password,
-        ))->addPosts(
-            $eloquentUser->posts->map(fn ($post) => new Post(Uuid::fromString($post->id), $post->content, $user))->toArray()
+            $eloquentUser->password
+        );
+        $user->addPosts(
+            $eloquentUser->posts->map(fn ($post) => new Post(
+                Uuid::fromString($post->id),
+                $post->content,
+                $user)
+            )->toArray()
+        )->addFollowings(
+            $eloquentUser->followings->map(
+                fn ($user) => (
+                    $tmpUser = new User(
+                        Uuid::fromString($user->id),
+                        $user->username,
+                        $user->email,
+                        $user->password
+                    ))->addPosts(
+                        $user->posts->map(fn ($post) => new Post(
+                            Uuid::fromString($post->id),
+                            $post->content,
+                            $tmpUser)
+                        )->toArray())
+            )->toArray()
         );
 
         return $user;

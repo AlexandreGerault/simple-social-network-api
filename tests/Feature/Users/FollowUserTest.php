@@ -28,6 +28,7 @@ class FollowUserTest extends TestCase
 
         // Test actions
         $response = $this->postJson('api/users/' . $userToFollow->id . '/follow');
+        $this->authenticatedUser->refresh();
 
         // Test assertions
         $response->assertStatus(204);
@@ -42,6 +43,7 @@ class FollowUserTest extends TestCase
 
         // Test actions
         $response = $this->postJson('api/users/' . Uuid::uuid4()->toString() . '/follow');
+        $this->authenticatedUser->refresh();
 
         // Test assertions
         $response->assertStatus(404);

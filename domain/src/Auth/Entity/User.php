@@ -125,4 +125,24 @@ class User
     {
         return $this->followings;
     }
+
+    /**
+     * @param array<User> $followings
+     * @return $this
+     */
+    public function addFollowings(array $followings): self
+    {
+        $this->followings = array_merge($followings, $this->followings);
+        return $this;
+    }
+
+    /**
+     * @param User $user
+     * @return $this
+     */
+    public function addFollowing(User $user): self
+    {
+        $this->followings[] = $user;
+        return $this;
+    }
 }
