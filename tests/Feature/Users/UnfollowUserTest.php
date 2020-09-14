@@ -29,6 +29,7 @@ class UnfollowUserTest extends TestCase
 
         // Test actions
         $response = $this->deleteJson('api/users/' . $userToFollow->id . '/follow');
+        $this->authenticatedUser->refresh();
 
         // Test assertions
         $response->assertStatus(204);
@@ -43,6 +44,7 @@ class UnfollowUserTest extends TestCase
 
         // Test actions
         $response = $this->deleteJson('api/users/' . Uuid::uuid4()->toString() . '/follow');
+        $this->authenticatedUser->refresh();
 
         // Test assertions
         $response->assertStatus(404);

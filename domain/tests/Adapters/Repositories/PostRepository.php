@@ -43,4 +43,25 @@ class PostRepository implements PostGateway
             throw new PostNotFoundException();
         }
     }
+
+    /**
+     * @param User $user
+     * @return array<Post>
+     */
+    public function getNewsfeed(User $user): array
+    {
+        $followingsPostsArrays = array_map(
+            fn($following) => $following->getPosts(),
+            $user->getFollowings()
+        );
+
+        $newsfeedPosts = array();
+        foreach ($followingsPostsArrays as $postsArray) {
+            foreach ($postsArray as $post) {
+                $newsfeedPosts[] = $post;
+            }
+        }
+
+        return $newsfeedPosts;
+    }
 }

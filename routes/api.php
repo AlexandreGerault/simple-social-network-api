@@ -28,6 +28,7 @@ Route::middleware('auth:sanctum')->post('/users/{id}/follow', 'Users\FollowUserC
 Route::middleware('auth:sanctum')->delete('/users/{id}/follow', 'Users\UnfollowUserController');
 Route::get('/users/{id}', 'Users\ShowUserController');
 
+Route::middleware('auth:sanctum')->get('/newsfeed', 'Post\ShowNewsfeedController');
 Route::middleware('auth:sanctum')->put('/posts/{id}', 'Post\EditPostController');
 Route::middleware('auth:sanctum')->delete('/posts/{id}', 'Post\DeletePostController');
 Route::middleware('auth:sanctum')->post('/posts', 'Post\CreatePostController');

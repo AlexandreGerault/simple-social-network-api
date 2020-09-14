@@ -92,6 +92,7 @@ class UserRepository extends BaseRepository implements UserGateway, Authenticati
             ->where('id', $authUser->getId()->toString())
             ->first();
         $eloquentUser->followings()->attach($userToFollow->getId()->toString());
+        $eloquentUser->load('followings');
 
         return EloquentUser::toUser($eloquentUser);
     }

@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\EloquentUser;
 use App\Models\EloquentPost;
+use Domain\SSN\Auth\Entity\User;
 use Domain\SSN\Posts\Entity\Post;
 use Domain\SSN\Posts\Exceptions\PostNotFoundException;
 use Domain\SSN\Posts\Gateway\PostGateway;
@@ -61,5 +62,26 @@ class PostRepository implements PostGateway
         if (!EloquentPost::destroy($id->toString())) {
             throw new PostNotFoundException();
         }
+    }
+
+    public function getNewsfeed(User $user): array
+    {
+        $eloquentPosts = EloquentPost::query()
+            ->whereIn(
+                'user_id',
+                array_map(
+                    fn($following) => $following->getId()->toString(),
+                    $user->getFollowings()
+                )
+            )
+            ->get();
+
+        return $eloquentPosts->map(
+            fn($post) => new Post(
+                Uuid::fromString($post->id),
+                $post->content,
+                EloquentUser::toUser($post->author)
+            )
+        )->toArray();
     }
 }

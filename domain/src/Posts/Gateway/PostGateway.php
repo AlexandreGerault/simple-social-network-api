@@ -2,6 +2,7 @@
 
 namespace Domain\SSN\Posts\Gateway;
 
+use Domain\SSN\Auth\Entity\User;
 use Domain\SSN\Posts\Entity\Post;
 use Domain\SSN\Posts\Exceptions\PostNotFoundException;
 use Ramsey\Uuid\UuidInterface;
@@ -23,4 +24,10 @@ interface PostGateway
      * @throws PostNotFoundException
      */
     public function delete(UuidInterface $id): void;
+
+    /**
+     * @param User $user
+     * @return array<Post>
+     */
+    public function getNewsfeed(User $user): array;
 }
